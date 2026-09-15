@@ -32,15 +32,18 @@ def main():
     eingang = input("Enter a name of an animal: ")
     animals_data = animals_api.fetch_data(eingang.lower())
 
-    output = ''
-    for animal in animals_data:
-        output += serialize_animal(animal)
-
     with open('animals_template.html', 'r') as file:
         template = file.read()
 
-    template = template.replace('__REPLACE_ANIMALS_INFO__', output)
+    if animals_data:
+        output = '<ul class="cards">'
+        for animal in animals_data:
+            output += serialize_animal(animal)
+        output += ' </ul>'
+    else:
+        output = f"<h2>Das Tier „{eingang}“ existiert nicht.</h2>"
 
+    template = template.replace('__REPLACE_ANIMALS_INFO__', output)
     with open('animals.html', 'w') as file:
         file.write(template)
 
