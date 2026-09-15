@@ -1,5 +1,4 @@
-import json
-import animals_api
+import data_fetcher
 
 
 def serialize_animal(animal):
@@ -29,8 +28,8 @@ def serialize_animal(animal):
 
 
 def main():
-    eingang = input("Enter a name of an animal: ")
-    animals_data = animals_api.fetch_data(eingang.lower())
+    animal_name = input("Please enter an animal: ")
+    animals_data = data_fetcher.fetch_data(animal_name)
 
     with open('animals_template.html', 'r') as file:
         template = file.read()
@@ -41,7 +40,7 @@ def main():
             output += serialize_animal(animal)
         output += ' </ul>'
     else:
-        output = f"<h2>Das Tier „{eingang}“ existiert nicht.</h2>"
+        output = f"<h2>Das Tier „{animal_name}“ existiert nicht.</h2>"
 
     template = template.replace('__REPLACE_ANIMALS_INFO__', output)
     with open('animals.html', 'w') as file:
