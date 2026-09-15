@@ -1,6 +1,7 @@
 import json
 import animals_api
 
+
 def serialize_animal(animal):
     """ serialize animal output """
     name = animal.get('name', 'Unbekannt')
@@ -27,16 +28,23 @@ def serialize_animal(animal):
     return output
 
 
-animals_data = animals_api.fetch_data("fox")
+def main():
+    eingang = input("Enter a name of an animal: ")
+    animals_data = animals_api.fetch_data(eingang.lower())
 
-output = ''
-for animal in animals_data:
-    output += serialize_animal(animal)
+    output = ''
+    for animal in animals_data:
+        output += serialize_animal(animal)
 
-with open('animals_template.html', 'r') as file:
-    template = file.read()
+    with open('animals_template.html', 'r') as file:
+        template = file.read()
 
-template = template.replace('__REPLACE_ANIMALS_INFO__', output)
+    template = template.replace('__REPLACE_ANIMALS_INFO__', output)
 
-with open('animals.html', 'w') as file:
-    file.write(template)
+    with open('animals.html', 'w') as file:
+        file.write(template)
+
+    print("Website was successfully generated to the file animals.html.")
+
+
+main()

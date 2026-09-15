@@ -23,11 +23,11 @@ def fetch_data(animal_name):
     headers = {"X-Api-Key": api_key}
     params = {"name": animal_name}
     response = requests.get(url, headers=headers, params=params)
-    print(" DEBUG")
-    print(" animal_name:", animal_name)
-    print(" status_code:", response.status_code)
-    print(" response.json:", response.json())
-    print("")
+    # print(" DEBUG")
+    # print(" animal_name:", animal_name)
+    # print(" status_code:", response.status_code)
+    # print(" response.json:", response.json())
+    # print("")
     return response.json()
 
 
